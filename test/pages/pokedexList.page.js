@@ -4,6 +4,10 @@ class PokedexListPage {
         return browser.$('h1[class*="section-title"]');
     }
 
+    get filterHeader() {
+        return browser.$('div[class="pokedex-filter-header"]');
+    }
+
     get searchInput() {
         return browser.$("#searchInput");
     }
