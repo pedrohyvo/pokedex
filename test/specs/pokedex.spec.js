@@ -14,12 +14,16 @@ describe('Pokedex page', () => {
 
     it('should find your pokemon', () => {
         pokedexList.searchPokemon(constants.pokemonName);
+        pokedexList.search();
         pokedexList.pokemonsList.waitForDisplayed();
         expect(pokedexList.pokemonNameResult.getText()).toBe(constants.pokemonName);
+        expect(pokedexList.pokemonAbilities.getText()).toContain(constants.pokemonAbility);
     });
 
     it('should not match your search', () => {
         pokedexList.searchPokemon(constants.invalidPokemonName);
+        pokedexList.searchButton.isDisplayed();
+        pokedexList.search();
         pokedexList.alertError.waitForDisplayed();
         expect(pokedexList.alertError.getText()).toBe(constants.noPokemonMsg);
     });

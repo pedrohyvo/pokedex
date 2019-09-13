@@ -8,12 +8,16 @@ class PokedexListPage {
         return browser.$("#searchInput");
     }
 
+    get searchSuggestion() {
+        return browser.$('div[class*="tt-suggestion"]');
+    }
+
     get searchButton() {
         return browser.$("#search");
     }
 
     get pokemonsList() {
-        return browser.$$('div[class="pokemon-info"]');
+        return browser.$('div[class="pokemon-info"]');
     }
 
     get pokemonNameResult() {
@@ -21,7 +25,7 @@ class PokedexListPage {
     }
 
     get pokemonAbilities() {
-        return browser.$$('div[class="pokemon-info"] > div[class="abilities"] > span[class*="pill"]');
+        return browser.$('div[class="pokemon-info"] > div[class="abilities"] > span[class*="pill"]');
     }
 
     get alertError() {
@@ -35,7 +39,19 @@ class PokedexListPage {
     }
 
     searchPokemon(value) {
+        this.searchInput.waitForDisplayed();
         this.searchInput.setValue(value);
+        if(this.searchSuggestion.isDisplayed()) {
+            this.searchSuggestion.click();
+        }
+    }
+
+    clickOnSearchSuggestion() {
+        this.searchSuggestion.waitForDisplayed();
+        this.searchSuggestion.click();
+    }
+
+    search() {
         this.searchButton.waitForDisplayed();
         this.searchButton.click();
     }
