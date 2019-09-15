@@ -1,0 +1,20 @@
+config:
+  target: 'https://pokeapi.co/api/v2'
+  phases:
+    - 
+      name: "Warm-up"
+      duration: 4
+      arrivalRate: 4
+    -
+      name: 'Pause'
+      pause: 10
+    -
+      name: 'heavy load'
+      duration: 15
+      arrivalRate: 25
+      rampTo: 100
+
+scenarios:
+  - flow:
+    - get:
+        url: "/region"
