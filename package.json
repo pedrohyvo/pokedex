@@ -31,5 +31,9 @@
     "wdio-chromedriver-service": "^5.0.2",
     "wdio-image-comparison-service": "^1.5.1",
     "wdio-selenium-standalone-service": "0.0.12"
+  },
+  "dependencies": {
+    "newman": "^4.5.4",
+    "newman-reporter-htmlextra": "^1.8.8"
   }
 }
