@@ -10,8 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/pedrohyvo/pokedex.git"
   },
-  "keywords": [],
-  "author": "",
+  "author": "Pedro Hyvo",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/pedrohyvo/pokedex/issues"

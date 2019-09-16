@@ -6,42 +6,187 @@
 	},
 	"item": [
 		{
-			"name": "GET:/api/v2/ability/",
-			"event": [
+			"name": "GET_Berry",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"id": "3c680eaf-82ff-4a37-829f-3a437b88df75",
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							"pm.test(\"Body matches string\", function () {",
-							"    pm.expect(pm.response.text()).to.include(\"sour\");",
-							"});",
-							"pm.test(\"Response time is less than 200ms\", function () {",
-							"    pm.expect(pm.response.responseTime).to.be.below(200);",
-							"});",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{url}}berry/1",
-					"host": [
-						"{{url}}berry"
+					"name": "GET:/api/v2/berry/valid_number",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3c680eaf-82ff-4a37-829f-3a437b88df75",
+								"exec": [
+									"",
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"tests[\"Response time is acceptable\"] = responseTime < 200; // milliseconds",
+									"",
+									"tests[\"Content-Type header is set\"] = postman.getResponseHeader(\"Content-Type\");",
+									"",
+									"pm.test(\"Response should be valid and have a body\", function () {",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"    pm.response.to.not.have.jsonBody(\"error\");",
+									"});",
+									"",
+									"const berrySchema = {",
+									"  \"type\": \"object\",",
+									"  \"required\": [],",
+									"  \"properties\": {",
+									"    \"firmness\": {",
+									"      \"type\": \"object\",",
+									"      \"required\": [],",
+									"      \"properties\": {",
+									"        \"name\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"url\": {",
+									"          \"type\": \"string\"",
+									"        }",
+									"      }",
+									"    },",
+									"    \"flavors\": {",
+									"      \"type\": \"array\",",
+									"      \"items\": {",
+									"        \"type\": \"object\",",
+									"        \"required\": [],",
+									"        \"properties\": {",
+									"          \"flavor\": {",
+									"            \"type\": \"object\",",
+									"            \"required\": [],",
+									"            \"properties\": {",
+									"              \"name\": {",
+									"                \"type\": \"string\"",
+									"              },",
+									"              \"url\": {",
+									"                \"type\": \"string\"",
+									"              }",
+									"            }",
+									"          },",
+									"          \"potency\": {",
+									"            \"type\": \"number\"",
+									"          }",
+									"        }",
+									"      }",
+									"    },",
+									"    \"growth_time\": {",
+									"      \"type\": \"number\"",
+									"    },",
+									"    \"id\": {",
+									"      \"type\": \"number\"",
+									"    },",
+									"    \"item\": {",
+									"      \"type\": \"object\",",
+									"      \"required\": [],",
+									"      \"properties\": {",
+									"        \"name\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"url\": {",
+									"          \"type\": \"string\"",
+									"        }",
+									"      }",
+									"    },",
+									"    \"max_harvest\": {",
+									"      \"type\": \"number\"",
+									"    },",
+									"    \"name\": {",
+									"      \"type\": \"string\"",
+									"    },",
+									"    \"natural_gift_power\": {",
+									"      \"type\": \"number\"",
+									"    },",
+									"    \"natural_gift_type\": {",
+									"      \"type\": \"object\",",
+									"      \"required\": [],",
+									"      \"properties\": {",
+									"        \"name\": {",
+									"          \"type\": \"string\"",
+									"        },",
+									"        \"url\": {",
+									"          \"type\": \"string\"",
+									"        }",
+									"      }",
+									"    },",
+									"    \"size\": {",
+									"      \"type\": \"number\"",
+									"    },",
+									"    \"smoothness\": {",
+									"      \"type\": \"number\"",
+									"    },",
+									"    \"soil_dryness\": {",
+									"      \"type\": \"number\"",
+									"    }",
+									"  }",
+									"}",
+									"",
+									"// Test whether the response matches the schema",
+									"var berry = JSON.parse(responseBody);",
+									"tests[\"Berry is valid\"] = tv4.validate(berry, berrySchema);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
 					],
-					"path": [
-						"1"
-					]
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}berry/1",
+							"host": [
+								"{{url}}berry"
+							],
+							"path": [
+								"1"
+							]
+						},
+						"description": "The result should return a list of berries that are related to pokemon ID typed. The test verify status code, response time, content-type, body and schema are working as designed."
+					},
+					"response": []
+				},
+				{
+					"name": "GET:/api/v2/berry/invalid_number",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3c680eaf-82ff-4a37-829f-3a437b88df75",
+								"exec": [
+									"tests[\"Status code is 404\"] = responseCode.code === 404;",
+									"",
+									"tests[\"Response time is acceptable\"] = responseTime < 200; // milliseconds",
+									"",
+									"pm.test(\"Content-Type is returned and contains expected value\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"    pm.response.to.be.header(\"Content-Type\", \"text/plain; charset=utf-8\");",
+									"});",
+									"",
+									"pm.test(\"Body matches string\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Not Found\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}berry/9999999",
+							"host": [
+								"{{url}}berry"
+							],
+							"path": [
+								"9999999"
+							]
+						},
+						"description": "The result should contain a single text. The test verify status code, response time, content-type and body are correct when user set an invalid number."
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		}
 	]
 }
