@@ -32,5 +32,5 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       # run tests!
-      - run: npm install chromedriver --chromedriver-force-download
+      - run: npm install chromedriver --chromedriver_cdnurl=https://chromedriver.storage.googleapis.com/77.0.3865.40/chromedriver_linux64.zip
       - run: npm run test
