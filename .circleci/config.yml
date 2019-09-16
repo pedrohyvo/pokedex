@@ -1,17 +1,15 @@
 version: 2
-jobs:
-  build:
-  branches:
-      only:
-        - develop  
-  working_directory: ~/personal-project
-    docker:
-      - image: circleci/node:10.13.0
-    steps:
-      - checkout
-      - run:
-          name: update-npm
-          command: 'sudo npm install -g npm@latest'
-      - run:
-          name: test
-          command: npm run test
+
+defaults:
+  working_directory: ~/repo
+  docker:
+    - image: circleci/node:8.9.1
+
+  steps:
+    - checkout
+    - run:
+        name: update-npm
+        command: 'sudo npm install -g npm@latest'
+    - run:
+        name: test
+        command: npm run test
