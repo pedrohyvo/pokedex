@@ -32,5 +32,5 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       # run tests!
-      - run: chromedriver -v
+      - run: npm install chromedriver --chromedriver-force-download
       - run: npm run test
