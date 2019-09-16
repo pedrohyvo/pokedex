@@ -7,8 +7,8 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: buildpack-deps:trusty
-      - image: circleci/node:4.8.2
+      # - image: buildpack-deps:trusty
+      - image: circleci/node:jessie-browsers
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -19,9 +19,6 @@ jobs:
 
     steps:
       - checkout
-      - run:
-          name: update-npm
-          command: 'sudo npm install -g npm@5'
       # Download and cache dependencies
       - restore_cache:
           keys:
