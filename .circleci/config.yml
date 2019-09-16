@@ -6,8 +6,7 @@ defaults:
     - image: circleci/node:8.9.1
 
   jobs:
-  test:
-    <<: *defaults  
+  test:  
     steps:
       - checkout
 
