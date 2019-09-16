@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "all": "npm run e2e-visual && npm run api && npm run api",
+    "test": "npm run e2e-visual && npm run api && npm run load",
     "e2e-visual": "npm i && wdio wdio.conf.js",
     "load": "npm i && artillery run test/load/region.yml",
     "api": "npm i && newman run test/specs/api/Pokedex.postman_collection.json -e test/specs/api/pokedex_env.postman_environment.json -r htmlextra --reporter-htmlextra-darkTheme --reporter-html-template=report"
